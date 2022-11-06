@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Report</title>
+    <link rel="stylesheet" href="./weather.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <!-- https://api.openweathermap.org/data/2.5/weather?q=kakkanad&appid=5b4bee0ba241d092159faf007e166080 -->
+</head>
+<body>
+    <div class="row">
+        <div class="col-4 text-center">
+            <input type="text" placeholder="Enter City Name" id="cname" class="form-control mt-5 ms-5">
+            <button onclick="search()" type="button" class="btn btn-primary mt-3">Search</button>
+        </div>
+    </div>
+        <!-- To view result -->
+        <div class="row mt-3">
+            <div class="col-4"></div>
+            <div class="col-4" id="result"></div>
+            <div class="col-4"></div>
+        </div>    
+</body>
+<script>
+    function search(){
+        c_name=cname.value
+        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${c_name}&appid=5b4bee0ba241d092159faf007e166080`).then(res=>res.json()).then(data=>displaydata(data))
+    }
+    function displaydata(cityDetails){
+        cname=cityDetails.name
+        condition=cityDetails.weather[0].main
+        hum=cityDetails.main.humidity
+        press=cityDetails.main.pressure
+        Temp=cityDetails.main.temp
+        Temperature=Math.floor((Temp - 273.15))
+
+        htmlData=`<div class="card" style="width: 18rem;">
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item text-center"><h5>${cname}</h5></li>
+    <li class="list-group-item">Temperature: ${Temperature}</li>
+    <li class="list-group-item">Condition: ${condition}</li>
+    <li class="list-group-item">Humidity: ${hum}</li>
+    <li class="list-group-item">Pressure: ${press}mb</li>
+  </ul>
+</div>`
+        result.innerHTML=htmlData
+    }
+</script>
+</html>
