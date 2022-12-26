@@ -6,14 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather Report</title>
     <link rel="stylesheet" href="./weather.css">
+    <script src="https://kit.fontawesome.com/05ea56c14f.js" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <!-- https://api.openweathermap.org/data/2.5/weather?q=kakkanad&appid=5b4bee0ba241d092159faf007e166080 -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Acme&family=Pacifico&family=Rubik+Bubbles&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="row">
         <div class="col-4 text-center">
-            <input type="text" placeholder="Enter City Name" id="cname" class="form-control mt-5 ms-5">
-            <button onclick="search()" type="button" class="btn btn-primary mt-3">Search</button>
+            <input style="font-family: Georgia, 'Times New Roman', Times, serif;" type="text" placeholder="Enter City Name" id="cname" class="form-control mt-5 ms-5">
+            <button onclick="search()" type="button" class="btn btn-outline-light mt-3">Search</button>
         </div>
     </div>
         <!-- To view result -->
@@ -23,6 +26,16 @@
             <div class="col-4"></div>
         </div>    
 </body>
+<!-- <div class="card" style="width: 18rem;">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item text-center" style="color:Purple;"><i class="fa-solid fa-location-dot"></i><h5>${cname}</h5></li>
+      <li class="list-group-item">Temperature: ${Temperature} ⁰C</li>
+      <li class="list-group-item">Condition: ${condition} <i class="fa-solid fa-cloud-sun"></i></li>
+      <li class="list-group-item">Humidity: ${hum}</li>
+      <li class="list-group-item">Pressure: ${press}mb</li>
+    </ul>
+  </div> -->
+  
 <script>
     function search(){
         c_name=cname.value
@@ -35,16 +48,41 @@
         press=cityDetails.main.pressure
         Temp=cityDetails.main.temp
         Temperature=Math.floor((Temp - 273.15))
+        windspeed=cityDetails.wind.speed
 
-        htmlData=`<div class="card" style="width: 18rem;">
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item text-center"><h5>${cname}</h5></li>
-    <li class="list-group-item">Temperature: ${Temperature}</li>
-    <li class="list-group-item">Condition: ${condition}</li>
-    <li class="list-group-item">Humidity: ${hum}</li>
-    <li class="list-group-item">Pressure: ${press}mb</li>
-  </ul>
-</div>`
+        htmlData=`<div style="font-family: 'Acme', sans-serif;"> 
+            <h2 class="text-center" style="border-radius: 18px; justify-content: space-around; background-color:white; opacity:70%;"><i class="fa-solid fa-location-dot fs-3"></i>${cname}</h2>
+            </div>
+            <div class="parent" style="background: rgba(57 ,87 ,79 ,0.5);">
+        <div class="child-1">
+            <div class="whole">
+                <h4 style="font-size:65px;"><i class="fa-solid fa-temperature-three-quarters fs-1"></i>:${Temperature}⁰C</h4>
+            </div>    
+            <div class="cond">
+                <h4><i class="fa-solid fa-cloud-sun"></i> : ${condition} </h4>
+            </div>  
+         </div>
+         <div class="child-2">
+            <div class="humid">
+                <h4> Humidity: ${hum} </h4>
+            </div>    
+
+             <div style="border-bottom: 1px solid white;">
+                <h4> Pressure: ${press}mb </h4>
+            </div>    
+
+            <div>
+                <h4> <i class="fa-sharp fa-solid fa-wind"></i> : ${windspeed} Km/h<h4>
+            </div>
+
+         </div>    
+        </div>    
+
+
+
+  
+
+`
         result.innerHTML=htmlData
     }
 </script>

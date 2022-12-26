@@ -3,3 +3,25 @@ body{
     /* background-repeat: no-repeat; */
     background-size: cover;
 }
+@keyframes anim{
+    from{
+        width:default ;
+    }
+    to{
+        /* width: 600px; */
+        transform: scale(1.1);
+    }
+}
+.parent{
+    display: flex;
+    justify-content:space-around;
+    font-family: 'Acme', sans-serif;
+    color: white;
+}
+.child-2{
+    border-radius: 10px; 
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+.whole{
+    animation: anim 1000ms ease-in-out 10ms infinite;
+}
